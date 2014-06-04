@@ -62,6 +62,7 @@ public class RuleChain implements FilterChain {
     // if called then call continue to process rules and call chain as if nothing happened
     private int ruleIdxToRun = 0;
     private RewrittenUrl finalRewrittenRequest = null;
+    private final String originalUrl;
     private String finalToUrl;
     private List rules;
     private boolean requestRewritten;
@@ -71,6 +72,7 @@ public class RuleChain implements FilterChain {
     private UrlRewriter urlRewriter;
 
     public RuleChain(UrlRewriter urlRewriter, String originalUrl, FilterChain parentChain) {
+        this.originalUrl = originalUrl;
         this.finalToUrl = originalUrl;
         this.urlRewriter = urlRewriter;
         this.rules = urlRewriter.getConf().getRules();
@@ -94,7 +96,6 @@ public class RuleChain implements FilterChain {
             finalRewrittenRequest = rewrittenUrl;
             finalToUrl = rewrittenUrl.getTarget();
             
-            String originalUrl = urlRewriter.getPathWithinApplication(hsRequest);
             if (StringUtils.notEqual(finalToUrl, originalUrl)) {
                 log.info(originalUrl + " ==> " + finalToUrl);
             }
