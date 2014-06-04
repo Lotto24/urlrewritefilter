@@ -99,4 +99,12 @@ public class StringUtils {
         return lcStr.equals(lcPrefix);
     }
 
+    
+    public static boolean notEqual(String a, String b) {
+        if (a == null) {
+            return b != null;
+        }
+        
+        return !a.equals(b);
+    }
 }

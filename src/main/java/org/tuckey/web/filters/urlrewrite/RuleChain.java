@@ -35,6 +35,7 @@
 package org.tuckey.web.filters.urlrewrite;
 
 import org.tuckey.web.filters.urlrewrite.utils.Log;
+import org.tuckey.web.filters.urlrewrite.utils.StringUtils;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -42,6 +43,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
@@ -92,7 +94,10 @@ public class RuleChain implements FilterChain {
             finalRewrittenRequest = rewrittenUrl;
             finalToUrl = rewrittenUrl.getTarget();
             
-            log.info(urlRewriter.getPathWithinApplication(hsRequest) + " ==> " + finalToUrl);
+            String originalUrl = urlRewriter.getPathWithinApplication(hsRequest);
+            if (StringUtils.notEqual(finalToUrl, originalUrl)) {
+                log.info(originalUrl + " ==> " + finalToUrl);
+            }
             
             if (rule.isLast()) {
                 log.debug("rule is last");
