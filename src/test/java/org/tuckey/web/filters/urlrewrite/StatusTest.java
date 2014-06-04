@@ -71,8 +71,8 @@ public class StatusTest extends TestCase {
         assertFalse(status.getBuffer().length() == 0);
 
         // save it so we can view it
-        File buildDir = new File("build");
-        if ( ! buildDir.exists() ) buildDir.mkdir();
+        File buildDir = new File("target", "surefire");
+        if ( ! buildDir.exists() ) buildDir.mkdirs();
         BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(new File(buildDir, "status.html")));
         try {
             bos.write(status.getBuffer().toString().getBytes());
