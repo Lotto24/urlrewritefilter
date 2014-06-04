@@ -91,6 +91,9 @@ public class RuleChain implements FilterChain {
             // if doFilter was used and final rewritten url is null
             finalRewrittenRequest = rewrittenUrl;
             finalToUrl = rewrittenUrl.getTarget();
+            
+            log.info(urlRewriter.getPathWithinApplication(hsRequest) + " ==> " + finalToUrl);
+            
             if (rule.isLast()) {
                 log.debug("rule is last");
                 // there can be no more matches on this request
